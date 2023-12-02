@@ -9,7 +9,7 @@ class MazeGraph{
         void ReadTextToGraph();
         void PrintGraph();
         void RenderMaze(bool);
-        void RenderGhostCage(int a, int b, bool);
+        void RenderCells(int a, int b, bool);
         void MazeClear();
 
         static std::vector<std::vector<char>> graph; //2D vector storing all elements of the text file.

@@ -18,14 +18,14 @@ class Game {
         GameState _gameState;
         SDL_Texture* loadTexture (const char* filePath);
         void HandleEvents();
+        SDL_Window* window;
+        SDL_Renderer* renderer;
     private:
         void clear();
         void display();
         void cleanUp();
         void render(SDL_Texture* tex, int x, int y, int w, int h);
         void renderText(const char* text, int x, int y, int fontSize);
-        SDL_Window* window;
-        SDL_Renderer* renderer;
         int HighScore = 0000;
         
 };
