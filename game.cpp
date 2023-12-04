@@ -20,7 +20,8 @@ void Game::CheckCollision(bool& running){
     }
 }
 
-void Game::MoveEnemies(){
+void Game::MoveEnemies(){ // picked up this logic for enemy movement from the internet.
+                          // anticipates next position that the enemy has to move.
     std::promise<void> prms;
     std::future<void> ftr = prms.get_future();
     std::thread t(&BlueGhost::Ghost_Move, &blue, std::ref(grid), std::ref(player), std::move(prms));
@@ -36,4 +37,37 @@ void Game::MovePlayer(){
     player.Move(grid);
     CheckWin(running, player);
     CheckCollision(running);
+}
+
+void Game::GameLoop(Controller& controller, GameRender& renderer){
+    // creating the pseudo random number generator rand()
+    stand(time(NULL));
+
+    // the main game loop
+
+    while (running){
+        frame_start = SDL_GetTicks();
+
+        //the function's name really gives it all away..
+        controller.HandleUserInputAndChangeDirection(running, player, grid);
+
+        // Updates direction of player and dependent ghosts.
+        MovePlayer();
+        if (running)
+            MoveEnemies();
+
+        // Render the changes on the screen
+        renderer.RenderGameState(grid, player, blue);
+
+        //timing, changes come after the user inputs something
+        frame_end = SDL_GetTicks();
+        frame_duration = frame_end - frame_start;
+
+        if (frame_duration < User_Reaction_ms){
+            SDL_Delay(User_Reaction_ms - frame_duration);
+        }    
+        if (!running){
+            SDL_Delay(1500);
+        }
+    }
 }
