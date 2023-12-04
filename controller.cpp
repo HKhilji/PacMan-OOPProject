@@ -11,8 +11,17 @@ void Controller::handleinputanddirection(bool& running, Player& player, Grid& gr
         if (event.type == SDL_KEYDOWN) {
             switch(event.key.keysm.sym) {
                 case SDLK_UP: //this if condition is just to check if collisison with wall. uses grid.cpp
-                        player.direction = (grid.at(player.x, player.y-1) == Grid::GridElement::kWall)? player.direction : Player::Direction::kUp;
-                        break;
+                    player.direction = (grid.at(player.x, player.y-1) == Grid::GridElement::kWall)? player.direction : Player::Direction::kUp;
+                    break;
+                case SDLK_DOWN: 
+					player.direction = (grid.at(player.x, player.y+1) == Grid::GridElement::kWall)? player.direction : Player::Direction::kDown; 
+					break;
+                case SDLK_LEFT: 
+					player.direction = (grid.at(player.x-1, player.y) == Grid::GridElement::kWall)? player.direction : Player::Direction::kLeft; 
+					break;
+                case SDLK_RIGHT: 
+					player.direction = (grid.at(player.x+1, player.y) == Grid::GridElement::kWall)? player.direction : Player::Direction::kRight; 
+					break;
 
             }
         }
