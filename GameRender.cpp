@@ -16,6 +16,11 @@ GameRender::~GameRender(){
 
     SDL_DestroyWindow(sdl_window);
     sdl_window = nullptr;
+
+    SDL_DestroyRenderer(renderer);
+    renderer = nullptr;
+
+    SDL_Quit();
 }
 
 void GameRender::RenderGameState(Grid& grid, Player& player, BlueGhost& blue){
@@ -36,7 +41,19 @@ void GameRender::DrawGrid(Grid& grid){
     SDL_Rect Rect;
     for (int i = 0; i < 19; i++){
         for (int j = 0; j < 23; j++){
-            //draw walls
+            
+            // draw grid's wall cells
+			if( grid.at(i, j) == Grid::GridElement::kWall ){
+				Rect.x = i * tile_width; 
+				Rect.y = j * tile_width;
+				Rect.w = tile_width; 
+				Rect.h = tile_width;
+				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black
+				SDL_RenderFillRect(renderer, &Rect);
+				continue;
+			}
+            
+            //draw food cells
             if ( grid.at(i,j) == Grid::GridElement::kWall){
                 Rect.x = (i * tile_width) + ((tile_width * 3)/8);
                 Rect.y = (j * tile_width) + ((tile_width * 3)/8);
@@ -85,7 +102,7 @@ void GameRender::drawEnemy(BlueGhost& blue){
     SDL_Rect Rect2; // destination rect
 
     Rect1.x = 3 * 50;
-	Rect1.y = 0 * 50;
+	Rect1.y = 0;
 	Rect1.w = 50; 
 	Rect1.h = 50;
 	Rect2.x = blue.x * tile_width; 
