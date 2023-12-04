@@ -23,7 +23,7 @@ class GameRender{
             SDL_Renderer* renderer = nullptr;
             SDL_Texture* tex = nullptr;
 
-            void DrawGridG(Grid& grid);
+            void DrawGrid(Grid& grid);
             void DrawPlayer(Player& player);
             void drawEnemy(BlueEnemy& blue);
 };

@@ -17,3 +17,18 @@ GameRender::~GameRender(){
     SDL_DestroyWindow(sdl_window);
     sdl_window = nullptr;
 }
+
+void GameRender::RenderGameState(Grid& grid, Player& player, BlueEnemy& blue){
+    // create a blank screen
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+    // draw the grid;
+    DrawGrid(grid);
+    // draw player
+    DrawPlayer(player);
+    // draw enemy
+    drawEnemy(blue);
+    //finally render everything
+    SDL_RenderPresent(renderer);
+}
+
