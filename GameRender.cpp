@@ -4,7 +4,7 @@
 GameRender::GameRender(){
     sdl_window = SDL_CreateWindow("Pacman!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_Surface* image = SDL_LoadBMP("../res/gfx/pacman50x50spritesheet.bmp");
+    SDL_Surface* image = SDL_LoadBMP("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp");
     tex = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
     image = nullptr;
@@ -43,7 +43,7 @@ void GameRender::DrawGrid(Grid& grid){
         for (int j = 0; j < 23; j++){
             
             // draw grid's wall cells
-			if( grid.at(i, j) == Grid::GridElement::kWall ){
+			if( grid.at(i, j) == 2 ){
 				Rect.x = i * tile_width; 
 				Rect.y = j * tile_width;
 				Rect.w = tile_width; 
@@ -54,7 +54,7 @@ void GameRender::DrawGrid(Grid& grid){
 			}
             
             //draw food cells
-            if ( grid.at(i,j) == Grid::GridElement::kWall){
+            if ( grid.at(i,j) == 1){
                 Rect.x = (i * tile_width) + ((tile_width * 3)/8);
                 Rect.y = (j * tile_width) + ((tile_width * 3)/8);
                 Rect.w = (tile_width/4);
@@ -66,7 +66,7 @@ void GameRender::DrawGrid(Grid& grid){
             }
 
             //draw empty cells, ie when there is no food
-            if ( grid.at(i,j) == Grid::GridElement::kEmpty){
+            if ( grid.at(i,j) == 0){
                 Rect.x = i * tile_width;
                 Rect.y = j * tile_width;
                 Rect.w = tile_width;

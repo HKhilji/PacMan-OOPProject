@@ -10,20 +10,20 @@ Grid::Grid()
 void Grid::LoadGameGrid()
 {
   int i = 0;
-  std::ifstream ifs("../data/grid.txt");
+  std::ifstream ifs("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/grid.txt");
   if(!ifs)
   { 
-    std::cerr << "Failed to open file <../data/grid.txt>\n";
+    std::cerr << "Failed to open file <../res/gfx/grid.txt>\n";
     return;
   };
   std::string line;
-while(std::getline(ifs,line))
+  while(std::getline(ifs,line))
   {
-    for(int j = 0; j < 19; j++)
-    {
-      grid[i][j] = line[j] - '0';
-    }
-  i++;
+      for(int j = 0; j < 19; j++)
+      {
+        grid[i][j] = line[j] - '0';
+      }
+    i++;
   }
 }
 
