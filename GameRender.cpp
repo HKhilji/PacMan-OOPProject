@@ -18,7 +18,7 @@ GameRender::~GameRender(){
     sdl_window = nullptr;
 }
 
-void GameRender::RenderGameState(Grid& grid, Player& player, BlueEnemy& blue){
+void GameRender::RenderGameState(Grid& grid, Player& player, BlueGhost& blue){
     // create a blank screen
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -80,7 +80,7 @@ void GameRender::DrawPlayer(Player& player){
     SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
 }
 
-void GameRender::drawEnemy(BlueEnemy& blue){
+void GameRender::drawEnemy(BlueGhost& blue){
     SDL_Rect Rect1; // source rect
     SDL_Rect Rect2; // destination rect
 

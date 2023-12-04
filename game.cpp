@@ -19,3 +19,21 @@ void Game::CheckCollision(bool& running){
         std::cout << "You Lost!" << std::endl;
     }
 }
+
+void Game::MoveEnemies(){
+    std::promise<void> prms;
+    std::future<void> ftr = prms.get_future();
+    std::thread t(&BlueGhost::Ghost_Move, &blue, std::ref(grid), std::ref(player), std::move(prms));
+
+    // wait before checking for collisions
+    ftr.wait();
+    CheckCollision(running);
+
+    t.join();
+}
+
+void Game::MovePlayer(){
+    player.Move(grid);
+    CheckWin(running, player);
+    CheckCollision(running);
+}

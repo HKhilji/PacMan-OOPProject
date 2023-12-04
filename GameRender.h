@@ -12,7 +12,7 @@ class GameRender{
 
         //making the remaining possible constructors just to be safe.
 
-        void RenderGameState(Grid& Grid, Player& player, BlueEnemy& blue);
+        void RenderGameState(Grid& Grid, Player& player, BlueGhost& blue);
 
         private:
             const std::size_t tile_width = 30;
@@ -25,5 +25,5 @@ class GameRender{
 
             void DrawGrid(Grid& grid);
             void DrawPlayer(Player& player);
-            void drawEnemy(BlueEnemy& blue);
+            void drawEnemy(BlueGhost& blue);
 };
