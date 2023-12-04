@@ -39,9 +39,9 @@ void Game::MovePlayer(){
     CheckCollision(running);
 }
 
-void Game::GameLoop(Controller& controller, GameRender& renderer){
+void Game::GameLoop(controller& controller, GameRender& gamerenderer){
     // creating the pseudo random number generator rand()
-    stand(time(NULL));
+    srand(time(NULL));
 
     // the main game loop
 
@@ -49,7 +49,7 @@ void Game::GameLoop(Controller& controller, GameRender& renderer){
         frame_start = SDL_GetTicks();
 
         //the function's name really gives it all away..
-        controller.HandleUserInputAndChangeDirection(running, player, grid);
+        controller.handleinputanddirection(running, player, grid);
 
         // Updates direction of player and dependent ghosts.
         MovePlayer();
@@ -57,7 +57,7 @@ void Game::GameLoop(Controller& controller, GameRender& renderer){
             MoveEnemies();
 
         // Render the changes on the screen
-        renderer.RenderGameState(grid, player, blue);
+        gamerenderer.RenderGameState(grid, player, blue);
 
         //timing, changes come after the user inputs something
         frame_end = SDL_GetTicks();

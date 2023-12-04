@@ -6,7 +6,7 @@
 
 class Game{
     public:
-        void GameLoop(Controller& controller, GameRender& renderer);
+        void GameLoop(controller& controller, GameRender& gamerenderer);
         int GetScore(){ return player.getScore(); }
         Grid grid;
         Player player;

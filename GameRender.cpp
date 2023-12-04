@@ -71,7 +71,7 @@ void GameRender::DrawPlayer(Player& player){
     Rect1.x = player.frame * 50;
     Rect1.y = player.direction * 50;
     Rect1.w = 50;
-    Rect.h = 50;
+    Rect1.h = 50;
 
     Rect2.x = player.x * tile_width;
     Rect2.y = player.y * tile_width;
@@ -92,6 +92,6 @@ void GameRender::drawEnemy(BlueGhost& blue){
 	Rect2.y = blue.y * tile_width; 
 	Rect2.w = tile_width; 
 	Rect2.h = tile_width;
-	SDL_RenderCopy(sdl_renderer, pacman_spritesheet_texture, &Rect1, &Rect2);
+	SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
 
 }

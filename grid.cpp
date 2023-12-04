@@ -4,7 +4,7 @@
 
 Grid::Grid()
 {
-  loadGamerGrid();
+  LoadGameGrid();
 }
 
 void Grid::LoadGameGrid()

@@ -9,16 +9,16 @@ void Player::Move(Grid& grid)
   switch (direction)
   {
     case Direction::kUp:
-      y = (grid.at(x,y-1) == Grid::GridElements::kWall)? y : (y-1);
+      y = (grid.at(x,y-1) == Grid::GridElement::kWall)? y : (y-1);
       break;
     case Direction::kDown:
-      y = (grid.at(x,y+1) == Grid::GridElements::kWall)? y : (y+1);
+      y = (grid.at(x,y+1) == Grid::GridElement::kWall)? y : (y+1);
       break;
     case Direction::kLeft:
-      x = (grid.at(x-1,y) == Grid::GridElements::kWall)? x : (x-1);
+      x = (grid.at(x-1,y) == Grid::GridElement::kWall)? x : (x-1);
       break;
     case Direction::kRight:
-      x = (grid.at(x+1,y) == Grid::GridElements::kWall)? x : (x+1);
+      x = (grid.at(x+1,y) == Grid::GridElement::kWall)? x : (x+1);
       break;
   }
   //check for portal
