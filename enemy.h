@@ -40,4 +40,7 @@ class RedGhost{
         std::vector<std::vector<int>> a_i path;
         int frame = 0;
     private:
-}
+        void RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Grid& grid);
+        int Heuristic(int x1, int y1, int x2, int y2);
+        bool AStar_checkCell(int x, int y, Grid& grid, int(&visited_Nodes)[19][23]);
+};
