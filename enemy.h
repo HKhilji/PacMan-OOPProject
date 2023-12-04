@@ -28,5 +28,16 @@ class BlueGhost{
 class RedGhost{
     public:
         RedGhost(int a, int b): ghost(a,b) {}
+        void Ghost_Move(Grid& grid, Player& player, std::promise<void>&&prms) override;
+        //node for a star search algorithm
+        struct Node {
+            int x;
+            int y;
+            int g;
+            int h;
+            std::shared_ptr<Node> parent = nullptr;
+        };
+        std::vector<std::vector<int>> a_i path;
+        int frame = 0;
     private:
 }
