@@ -10,7 +10,9 @@ void Controller::handleinputanddirection(bool& running, Player& player, Grid& gr
     //this is for key detection, keydown is for detecting when key is pressed
     if (event.type == SDL_KEYDOWN) {
         switch(event.key.keysm.sym) {
-            
+            case SDLK_UP: //this if condition is just to check if collisison with wall. uses grid.cpp
+					player.direction = (grid.at(player.x, player.y-1) == Grid::GridElement::kWall)? player.direction : Player::Direction::kUp;
+					break;
 
         }
     }
