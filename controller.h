@@ -4,5 +4,5 @@
 
 class controller {
     public:
-        void handleinputanddirection();
+        void handleinputanddirection(bool& moving, Player& player, Grid& grid);
 };
