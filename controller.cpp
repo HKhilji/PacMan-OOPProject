@@ -7,5 +7,12 @@ void Controller::handleinputanddirection(bool& running, Player& player, Grid& gr
     if (event.type == SDL.QUIT) { //sets running false if event is to quit
         running = false;
     }
+    //this is for key detection, keydown is for detecting when key is pressed
+    if (event.type == SDL_KEYDOWN) {
+        switch(event.key.keysm.sym) {
+            
+
+        }
+    }
     }
 }
