@@ -7,16 +7,16 @@
 #include <time.h>
 #include <thread>
 
-void RedGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
-	// red ghost uses a-star algo to chase
-	RunAStarSearchAndMove(x, y, player.x, player.y, grid);
-	prms.set_value();
-}
+// void RedGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
+// 	// red ghost uses a-star algo to chase
+// 	RunAStarSearchAndMove(x, y, player.x, player.y, grid);
+// 	prms.set_value();
+// }
 
 
 void BlueGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
 	// blue ghost uses random moves
-	RunRandomAlgorithmAndMove(grid);
+	RandomAlgo(grid);
 	prms.set_value();
 }
 

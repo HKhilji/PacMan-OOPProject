@@ -4,10 +4,10 @@
 
 Grid::Grid()
 {
-  loadGamerGrid();
+  LoadGameGrid();
 }
 
-void Grid::LoadGamerGrid()
+void Grid::LoadGameGrid()
 {
   int i = 0;
   std::ifstream ifs("../data/grid.txt");
@@ -27,7 +27,7 @@ while(std::getline(ifs,line))
   }
 }
 
-void Grid::PrintFameGrid()
+void Grid::PrintGameGrid()
 {
   for(int i = 0; i < 23; i++)
   {
