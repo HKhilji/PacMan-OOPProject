@@ -62,3 +62,36 @@ void GameRender::DrawGrid(Grid& grid){
         }
     }
 }
+
+void GameRender::DrawPlayer(Player& player){
+    SDL_Rect Rect1; // source rect
+    SDL_Rect Rect2; // destination rect
+
+    player.frame = (player.frame + 1) % 2;
+    Rect1.x = player.frame * 50;
+    Rect1.y = player.direction * 50;
+    Rect1.w = 50;
+    Rect.h = 50;
+
+    Rect2.x = player.x * tile_width;
+    Rect2.y = player.y * tile_width;
+    Rect2.w = tile_width;
+    Rect2.h = tile_width;
+    SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
+}
+
+void GameRender::drawEnemy(BlueEnemy& blue){
+    SDL_Rect Rect1; // source rect
+    SDL_Rect Rect2; // destination rect
+
+    Rect1.x = 3 * 50;
+	Rect1.y = 0 * 50;
+	Rect1.w = 50; 
+	Rect1.h = 50;
+	Rect2.x = blue.x * tile_width; 
+	Rect2.y = blue.y * tile_width; 
+	Rect2.w = tile_width; 
+	Rect2.h = tile_width;
+	SDL_RenderCopy(sdl_renderer, pacman_spritesheet_texture, &Rect1, &Rect2);
+
+}
