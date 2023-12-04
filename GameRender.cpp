@@ -43,7 +43,7 @@ void GameRender::DrawGrid(Grid& grid){
         for (int j = 0; j < 23; j++){
             
             // draw grid's wall cells
-			if( grid.at(i, j) == 2 ){
+			if( grid.at(i, j) == Grid::GridElement::kWall){
 				Rect.x = i * tile_width; 
 				Rect.y = j * tile_width;
 				Rect.w = tile_width; 
@@ -54,7 +54,7 @@ void GameRender::DrawGrid(Grid& grid){
 			}
             
             //draw food cells
-            if ( grid.at(i,j) == 1){
+            if ( grid.at(i,j) == Grid::GridElement::kFood){
                 Rect.x = (i * tile_width) + ((tile_width * 3)/8);
                 Rect.y = (j * tile_width) + ((tile_width * 3)/8);
                 Rect.w = (tile_width/4);
@@ -66,7 +66,7 @@ void GameRender::DrawGrid(Grid& grid){
             }
 
             //draw empty cells, ie when there is no food
-            if ( grid.at(i,j) == 0){
+            if ( grid.at(i,j) == Grid::GridElement::kEmpty){
                 Rect.x = i * tile_width;
                 Rect.y = j * tile_width;
                 Rect.w = tile_width;
