@@ -21,7 +21,7 @@ class BlueGhost : public ghost{
         int prev_x = 0;
         int prev_y = 0;
         void RandomAlgo(Grid& grid);
-        bool random_valid_cell(int x, int y, Grid& grid);
+        // bool random_valid_cell(int x, int y, Grid& grid);
 };
 
 //searches for player
