@@ -46,3 +46,25 @@ void BlueGhost::RandomAlgo(Grid& grid){
 	x = moves[random_index][0];
 	y = moves[random_index][1];
 }
+
+bool BlueGhost::random_valid_cell(int x, int y, Grid& grid){
+	// acquire grid mutex
+	std::lock_guard<std::mutex> lck(grid.mtx);
+
+	// check if out of grid
+	if((x < 0) || (x > 18)){ return false; }
+	if((y < 0) || (y > 22)){ return false; }
+
+	// check for grid walls
+	if(grid.at(x, y) == Grid::GridElement::kWall){ return false; }
+
+	// prevent move to previous cell
+	if((x == prev_x) && (y == prev_y)){ return false; }
+
+	// prevent move into tunnel leading to portal
+	if((x == 3) && (y == 10)){ return false; }
+	if((x == 15) && (y == 10)){ return false; }
+
+	// else it is valid cell to move
+	return true;	
+}
