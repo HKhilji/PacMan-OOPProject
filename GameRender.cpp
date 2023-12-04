@@ -32,3 +32,33 @@ void GameRender::RenderGameState(Grid& grid, Player& player, BlueEnemy& blue){
     SDL_RenderPresent(renderer);
 }
 
+void GameRender::DrawGrid(Grid& grid){
+    SDL_Rect Rect;
+    for (int i = 0; i < 19; i++){
+        for (int j = 0; j < 23; j++){
+            //draw walls
+            if ( grid.at(i,j) == Grid::GridElement::kWall){
+                Rect.x = (i * tile_width) + ((tile_width * 3)/8);
+                Rect.y = (j * tile_width) + ((tile_width * 3)/8);
+                Rect.w = (tile_width/4);
+                Rect.h = (tile_width/4);
+
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                SDL_RenderFillRect(renderer, &Rect);
+                continue;
+            }
+
+            //draw empty cells, ie when there is no food
+            if ( grid.at(i,j) == Grid::GridElement::kEmpty){
+                Rect.x = i * tile_width;
+                Rect.y = j * tile_width;
+                Rect.w = tile_width;
+                Rect.h = tile_width;
+
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_RenderFillRect(renderer, &Rect);
+                continue;
+            }
+        }
+    }
+}
