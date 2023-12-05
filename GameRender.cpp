@@ -121,7 +121,7 @@ void GameRender::drawEnemy(BlueGhost& blue){
     SDL_Rect Rect2; // destination rect
 
     Rect1.x = 3 * 50;
-	Rect1.y = 0;
+	Rect1.y = 0 * 50;
 	Rect1.w = 50; 
 	Rect1.h = 50;
 	Rect2.x = blue.x * tile_width; 
