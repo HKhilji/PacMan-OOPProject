@@ -23,6 +23,23 @@ GameRender::~GameRender(){
     SDL_Quit();
 }
 
+void GameRender::DrawPortals(){
+    SDL_Rect Rect;
+
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    Rect.x = 0 * tile_width;
+    Rect.y = 10 * tile_width;
+    Rect.w = tile_width;
+    Rect.h = tile_width;
+    SDL_RenderFillRect(renderer, &Rect);
+
+    Rect.x = 18 * tile_width;
+    Rect.y = 10 * tile_width;
+    Rect.w = tile_width;
+    Rect.h = tile_width;
+    SDL_RenderFillRect(renderer, &Rect);
+}
+
 void GameRender::RenderGameState(Grid& grid, Player& player, BlueGhost& blue){
     // create a blank screen
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -80,23 +97,6 @@ void GameRender::DrawGrid(Grid& grid){
             }
         }
     }
-}
-
-void GameRender::DrawPortals(){
-    SDL_Rect Rect;
-
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    Rect.x = 0 * tile_width;
-    Rect.y = 10 * tile_width;
-    Rect.w = tile_width;
-    Rect.h = tile_width;
-    SDL_RenderFillRect(renderer, &Rect);
-
-    Rect.x = 18 * tile_width;
-    Rect.y = 10 * tile_width;
-    Rect.w = tile_width;
-    Rect.h = tile_width;
-    SDL_RenderFillRect(renderer, &Rect);
 }
 
 void GameRender::DrawPlayer(Player& player){

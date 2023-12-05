@@ -24,6 +24,7 @@ class GameRender{
             SDL_Texture* tex = nullptr;
 
             void DrawGrid(Grid& grid);
+            void DrawPortals();
             void DrawPlayer(Player& player);
             void drawEnemy(BlueGhost& blue);
 };
