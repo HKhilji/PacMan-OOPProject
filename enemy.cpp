@@ -109,7 +109,9 @@ void RedGhost::RunRedSearch {
 
 		// this is for when goal node is not found, 'expands' each node by opening its neighbours. checks if valid move, then added to openlist if valid move.
 		for (int i = 0; i < 4; i++) {
-			
+			int x2 = current_node->x + delta[i][0];
+			int y2 = current_node->y + delta[i][1];
+			//now for each neighbour cell
 		}
 
 	}
