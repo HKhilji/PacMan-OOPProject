@@ -112,12 +112,17 @@ void RedGhost::RunRedSearch {
 			int x2 = current_node->x + delta[i][0];
 			int y2 = current_node->y + delta[i][1];
 			//now for each neighbour cell
-		}
-		if (AStar_CheckValidCell(x2, y2, grid, visited_nodes) {
-			if (parent_node->start_node->parent != nullptr) {
-				parent_node->current_node;
+			if (AStar_CheckValidCell(x2, y2, grid, visited_nodes) {
+				std::shared_ptr<Node> node (new Node); 
+					node->x = x2;
+					node->y = y2;
+					node->g = current_node->g + 1;
+					node->h = Heuristic(node->x, node->y, goal_x, goal_y);
+					node->parent = current_node;
+					// add the valid neighbor
+					openlist.push_back(node);
+					visited_nodes[node->x][node->y] = 1;
 			}
 		}
-
 	}
 }
