@@ -53,9 +53,10 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
 
         // Updates direction of player and dependent ghosts.
         MovePlayer();
-        if (running)
+        if (running){
             MoveEnemies();
-
+        }
+        
         // Render the changes on the screen
         gamerenderer.RenderGameState(grid, player, blue);
 
