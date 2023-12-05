@@ -130,3 +130,8 @@ void RedGhost::RunRedSearch {
 int RedEnemy::Heuristic(int x1, int y1, int x2, int y2){
 	return std::abs(x2 - x1) + std::abs(y2 - y1);
 }
+
+bool RedEnemy::AStar_CheckValidCell(int x, int y, Grid& grid, int(&visited_nodes)[19][23]){
+	//acquire grid. mutex for ensuring no errors
+	std::lock_guard<std::mutex> lck(grid.mtx);
+}
