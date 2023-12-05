@@ -86,4 +86,15 @@ void RedGhost::RunRedSearch {
 	//push node into openlist and mark it to prevent readdition
 	openlist.push_back(start_node);
 	visited_nodes[start_node->x][start_node->y] = 1;
+
+	while (openlist.size() > 0) { //basic premise here, loop until openlist empty. each iteration, node with least cost (g+h) is selected for expanding. if goal found, path is reconstructed and loop ends.
+		//this sorts the list according to total cost (g+h)
+		std::sort(openlist.begin(), openlist.end(), [](std::shared_ptr<Node> a, std::shared_ptr<Node> b){ return (a->g + a->h) < (b->g + b->h); });
+		current_node = openlist.front();
+		openlist.erase(openlist.begin());
+
+		if ((current_node->x == goal_x) && (current_node->y == goal_y)) {
+		}
+
+	}
 }
