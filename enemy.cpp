@@ -94,6 +94,17 @@ void RedGhost::RunRedSearch {
 		openlist.erase(openlist.begin());
 
 		if ((current_node->x == goal_x) && (current_node->y == goal_y)) {
+			std::shared_ptr<Node> ptr = current_node;
+			ai_path.clear();
+			if (ptr->parent){
+				while(ptr->parent->parent != nullptr) {
+					ptr = ptr->parent;
+					ai_path.push_back(std::vector<int>(ptr->x,ptr->y));
+				}
+			}
+			x->ptr_x;
+			y->ptr_y;
+			return;
 		}
 
 	}
