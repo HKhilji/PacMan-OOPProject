@@ -114,7 +114,9 @@ void RedGhost::RunRedSearch {
 			//now for each neighbour cell
 		}
 		if (AStar_CheckValidCell(x2, y2, grid, visited_nodes) {
-			
+			if (parent_node->start_node->parent != nullptr) {
+				parent_node->current_node;
+			}
 		}
 
 	}
