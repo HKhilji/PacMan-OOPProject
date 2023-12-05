@@ -29,6 +29,8 @@ void GameRender::RenderGameState(Grid& grid, Player& player, BlueGhost& blue){
     SDL_RenderClear(renderer);
     // draw the grid;
     DrawGrid(grid);
+    // draw portals
+    DrawPortals();
     // draw player
     DrawPlayer(player);
     // draw enemy
@@ -57,8 +59,8 @@ void GameRender::DrawGrid(Grid& grid){
             if ( grid.at(i,j) == Grid::GridElement::kFood){
                 Rect.x = (i * tile_width) + ((tile_width * 3)/8);
                 Rect.y = (j * tile_width) + ((tile_width * 3)/8);
-                Rect.w = (tile_width/4);
-                Rect.h = (tile_width/4);
+                Rect.w = ((tile_width*1)/4);
+                Rect.h = ((tile_width*1)/4);
 
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                 SDL_RenderFillRect(renderer, &Rect);
@@ -78,6 +80,23 @@ void GameRender::DrawGrid(Grid& grid){
             }
         }
     }
+}
+
+void GameRender::DrawPortals(){
+    SDL_Rect Rect;
+
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    Rect.x = 0 * tile_width;
+    Rect.y = 10 * tile_width;
+    Rect.w = tile_width;
+    Rect.h = tile_width;
+    SDL_RenderFillRect(renderer, &Rect);
+
+    Rect.x = 18 * tile_width;
+    Rect.y = 10 * tile_width;
+    Rect.w = tile_width;
+    Rect.h = tile_width;
+    SDL_RenderFillRect(renderer, &Rect);
 }
 
 void GameRender::DrawPlayer(Player& player){
