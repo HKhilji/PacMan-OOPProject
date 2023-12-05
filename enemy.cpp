@@ -68,3 +68,11 @@ bool BlueGhost::random_valid_cell(int x, int y, Grid& grid){
 	// else it is valid cell to move
 	return true;	
 }
+
+void RedGhost::RunRedSearch {
+	int delta[4][2] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}}; //this delta is for all possible moves on the board.
+	int visited_nodes[19][23];
+	memset(visited_nodes, 0, sizeof(visited_nodes)); //this keeps track of the visited nodes
+
+	std::vector<std::shared_ptr<Node>> openList;
+}
