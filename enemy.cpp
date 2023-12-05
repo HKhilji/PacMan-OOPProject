@@ -107,5 +107,10 @@ void RedGhost::RunRedSearch {
 			return;
 		}
 
+		// this is for when goal node is not found, 'expands' each node by opening its neighbours. checks if valid move, then added to openlist if valid move.
+		for (int i = 0; i < 4; i++) {
+			
+		}
+
 	}
 }
