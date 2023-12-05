@@ -75,4 +75,15 @@ void RedGhost::RunRedSearch {
 	memset(visited_nodes, 0, sizeof(visited_nodes)); //this keeps track of the visited nodes
 
 	std::vector<std::shared_ptr<Node>> openList;
+
+	std::shared_ptr<Node> start_node (new Node); 
+	start_node->x = start_x;
+	start_node->y = start_y;
+	start_node->g = 0; //the variable g here represents cost of path from start to curr_node. Initially 0 for parent.
+	start_node->h = Heuristic(start_node->x, start_node->y, goal_x, goal_y); //heuristic calculates estimated path cost from curr_node to goal.
+	start_node->parent = nullptr;
+
+	//push node into openlist and mark it to prevent readdition
+	openlist.push_back(start_node);
+	visited_nodes[start_node->x][start_node->y] = 1;
 }
