@@ -113,6 +113,9 @@ void RedGhost::RunRedSearch {
 			int y2 = current_node->y + delta[i][1];
 			//now for each neighbour cell
 		}
+		if (AStar_CheckValidCell(x2, y2, grid, visited_nodes) {
+			
+		}
 
 	}
 }
