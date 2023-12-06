@@ -138,4 +138,14 @@ bool RedEnemy::AStar_CheckValidCell(int x, int y, Grid& grid, int(&visited_nodes
 	//these are to check if pacman goes outside the grid
 	if((x<0) || (x>18)) { return false;}
 	if((y<0) || (y>22)) { return false;}
+
+	//check if node visited
+	if(visited_nodes[x][y] == 1) {return false;}
+
+	//check for grid wall
+	if(grid.at(x,y) == Grid::GridElement::kWall){return false;}
+	
+	//valid node so return true
+	return true;
+
 }
