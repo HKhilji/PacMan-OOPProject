@@ -134,4 +134,8 @@ int RedEnemy::Heuristic(int x1, int y1, int x2, int y2){
 bool RedEnemy::AStar_CheckValidCell(int x, int y, Grid& grid, int(&visited_nodes)[19][23]){
 	//acquire grid. mutex for ensuring no errors
 	std::lock_guard<std::mutex> lck(grid.mtx);
+
+	//these are to check if pacman goes outside the grid
+	if((x<0) || (x>18)) { return false;}
+	if((y<0) || (y>22)) { return false;}
 }
