@@ -25,22 +25,22 @@ class BlueGhost : public ghost{
 };
 
 //searches for player
-// class RedGhost{
-//     public:
-//         RedGhost(int a, int b): ghost(a,b) {}
-//         void Ghost_Move(Grid& grid, Player& player, std::promise<void>&&prms) override;
-//         //node for a star search algorithm
-//         struct Node {
-//             int x;
-//             int y;
-//             int g;
-//             int h;
-//             std::shared_ptr<Node> parent = nullptr;
-//         };
-//         std::vector<std::vector<int>> ai_path;
-//         int frame = 0;
-//     private:
-//         void RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Grid& grid);
-//         int Heuristic(int x1, int y1, int x2, int y2);
-//         bool AStar_checkCell(int x, int y, Grid& grid, int(&visited_Nodes)[19][23]);
-// };
+class RedGhost{
+     public:
+         RedGhost(int a, int b): ghost(a,b) {}
+         void Ghost_Move(Grid& grid, Player& player, std::promise<void>&&prms) override;
+         //node for a star search algorithm
+         struct Node {
+             int x;
+             int y;
+             int g;
+             int h;
+             std::shared_ptr<Node> parent = nullptr;
+         };
+         std::vector<std::vector<int>> ai_path;
+         int frame = 0;
+     private:
+         void RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Grid& grid);
+         int Heuristic(int x1, int y1, int x2, int y2);
+         bool AStar_checkCell(int x, int y, Grid& grid, int(&visited_Nodes)[19][23]);
+ };
