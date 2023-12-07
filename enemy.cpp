@@ -9,7 +9,7 @@
 
 void RedGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
 	// red ghost uses a-star algo to chase
-	RunAStarSearchAndMove(x, y, player.x, player.y, grid);
+	RunRedSearch(x, y, player.x, player.y, grid);
 	prms.set_value();
 }
 
@@ -84,16 +84,16 @@ void RedGhost::RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Gr
 	start_node->parent = nullptr;
 
 	//push node into openlist and mark it to prevent readdition
-	openlist.push_back(start_node);
+	openList.push_back(start_node);
 	visited_nodes[start_node->x][start_node->y] = 1;
 
 	std::shared_ptr<Node> current_node = nullptr; 
 
-	while (openlist.size() > 0) { //basic premise here, loop until openlist empty. each iteration, node with least cost (g+h) is selected for expanding. if goal found, path is reconstructed and loop ends.
+	while (openList.size() > 0) { //basic premise here, loop until openlist empty. each iteration, node with least cost (g+h) is selected for expanding. if goal found, path is reconstructed and loop ends.
 		//this sorts the list according to total cost (g+h)
-		std::sort(openlist.begin(), openlist.end(), [](std::shared_ptr<Node> a, std::shared_ptr<Node> b){ return (a->g + a->h) < (b->g + b->h); });
-		current_node = openlist.front();
-		openlist.erase(openlist.begin());
+		std::sort(openList.begin(), openList.end(), [](std::shared_ptr<Node> a, std::shared_ptr<Node> b){ return (a->g + a->h) < (b->g + b->h); });
+		current_node = openList.front();
+		openList.erase(openList.begin());
 
 		if ((current_node->x == goal_x) && (current_node->y == goal_y)) {
 			std::shared_ptr<Node> ptr = current_node;
@@ -104,8 +104,8 @@ void RedGhost::RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Gr
 					ai_path.push_back(std::vector<int>(ptr->x,ptr->y));
 				}
 			}
-			x->ptr_x;
-			y->ptr_y;
+			x = ptr->x;
+			y = ptr->y;
 			return;
 		}
 
@@ -114,7 +114,7 @@ void RedGhost::RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Gr
 			int x2 = current_node->x + delta[i][0];
 			int y2 = current_node->y + delta[i][1];
 			//now for each neighbour cell
-			if (AStar_CheckValidCell(x2, y2, grid, visited_nodes)) {
+			if (AStar_checkCell(x2, y2, grid, visited_nodes)) {
 				std::shared_ptr<Node> node (new Node); 
 					node->x = x2;
 					node->y = y2;
@@ -122,7 +122,7 @@ void RedGhost::RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Gr
 					node->h = Heuristic(node->x, node->y, goal_x, goal_y);
 					node->parent = current_node;
 					// add the valid neighbor
-					openlist.push_back(node);
+					openList.push_back(node);
 					visited_nodes[node->x][node->y] = 1;
 			}
 		}
@@ -133,7 +133,7 @@ int RedGhost::Heuristic(int x1, int y1, int x2, int y2){
 	return std::abs(x2 - x1) + std::abs(y2 - y1);
 }
 
-bool RedGhost::AStar_CheckValidCell(int x, int y, Grid& grid, int(&visited_nodes)[19][23]){
+bool RedGhost::AStar_checkCell(int x, int y, Grid& grid, int(&visited_nodes)[19][23]){
 	//acquire grid. mutex for ensuring no errors
 	std::lock_guard<std::mutex> lck(grid.mtx);
 
