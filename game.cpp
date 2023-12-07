@@ -14,7 +14,7 @@ void Game::CheckWin(bool& running, Player& player){
 }
 
 void Game::CheckCollision(bool& running){
-    if ((player.x == blue.x) && (player.y == blue.y)){
+    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.x))){
         running = false;
         std::cout << "You Lost!" << std::endl;
     }
@@ -26,11 +26,17 @@ void Game::MoveEnemies(){ // picked up this logic for enemy movement from the in
     std::future<void> ftr = prms.get_future();
     std::thread t(&BlueGhost::Ghost_Move, &blue, std::ref(grid), std::ref(player), std::move(prms));
 
+    std::promise<void> prms2;
+    std::future<void> ftr2 = prms2.get_future();
+    std::thread t2(&RedGhost::Ghost_Move, &red, std::ref(grid), std::ref(player), std::move(prms2));
+
     // wait before checking for collisions
     ftr.wait();
+    ftr2.wait();
     CheckCollision(running);
 
     t.join();
+    t2.join();
 }
 
 void Game::MovePlayer(){
