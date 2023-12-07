@@ -7,11 +7,11 @@
 #include <time.h>
 #include <thread>
 
-// void RedGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
-// 	// red ghost uses a-star algo to chase
-// 	RunAStarSearchAndMove(x, y, player.x, player.y, grid);
-// 	prms.set_value();
-// }
+void RedGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
+	// red ghost uses a-star algo to chase
+	RunAStarSearchAndMove(x, y, player.x, player.y, grid);
+	prms.set_value();
+}
 
 
 void BlueGhost::Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms){
@@ -69,7 +69,7 @@ bool BlueGhost::random_valid_cell(int x, int y, Grid& grid){
 	return true;	
 }
 
-void RedGhost::RunRedSearch {
+void RedGhost::RunRedSearch(int start_x, int start_y, int goal_x, int goal_y, Grid& grid) {
 	int delta[4][2] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}}; //this delta is for all possible moves on the board.
 	int visited_nodes[19][23];
 	memset(visited_nodes, 0, sizeof(visited_nodes)); //this keeps track of the visited nodes
@@ -86,6 +86,8 @@ void RedGhost::RunRedSearch {
 	//push node into openlist and mark it to prevent readdition
 	openlist.push_back(start_node);
 	visited_nodes[start_node->x][start_node->y] = 1;
+
+	std::shared_ptr<Node> current_node = nullptr; 
 
 	while (openlist.size() > 0) { //basic premise here, loop until openlist empty. each iteration, node with least cost (g+h) is selected for expanding. if goal found, path is reconstructed and loop ends.
 		//this sorts the list according to total cost (g+h)
@@ -112,7 +114,7 @@ void RedGhost::RunRedSearch {
 			int x2 = current_node->x + delta[i][0];
 			int y2 = current_node->y + delta[i][1];
 			//now for each neighbour cell
-			if (AStar_CheckValidCell(x2, y2, grid, visited_nodes) {
+			if (AStar_CheckValidCell(x2, y2, grid, visited_nodes)) {
 				std::shared_ptr<Node> node (new Node); 
 					node->x = x2;
 					node->y = y2;

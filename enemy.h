@@ -25,7 +25,7 @@ class BlueGhost : public ghost{
 };
 
 //searches for player
-class RedGhost{
+class RedGhost : public ghost{
      public:
          RedGhost(int a, int b): ghost(a,b) {}
          void Ghost_Move(Grid& grid, Player& player, std::promise<void>&&prms) override;
