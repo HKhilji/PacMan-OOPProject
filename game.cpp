@@ -14,7 +14,7 @@ void Game::CheckWin(bool& running, Player& player){
 }
 
 void Game::CheckCollision(bool& running){
-    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.x))){
+    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y))){
         running = false;
         std::cout << "You Lost!" << std::endl;
     }
