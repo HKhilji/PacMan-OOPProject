@@ -58,7 +58,7 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
         }
         
         // Render the changes on the screen
-        gamerenderer.RenderGameState(grid, player, blue);
+        gamerenderer.RenderGameState(grid, player, blue, red);
 
         //timing, changes come after the user inputs something
         frame_end = SDL_GetTicks();

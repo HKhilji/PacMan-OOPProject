@@ -10,7 +10,8 @@ class Game{
         int GetScore(){ return player.getScore(); }
         Grid grid;
         Player player;
-        BlueGhost blue{17,1};
+        BlueGhost blue{10,10};
+        RedGhost red{10,10};
 
     private:
         bool running = true;

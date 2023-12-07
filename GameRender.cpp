@@ -40,18 +40,19 @@ void GameRender::DrawPortals(){
     SDL_RenderFillRect(renderer, &Rect);
 }
 
-void GameRender::RenderGameState(Grid& grid, Player& player, BlueGhost& blue){
+void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red){
     // create a blank screen
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
     // draw the grid;
-    DrawGrid(grid);
+    DrawGrid(Grid);
     // draw portals
     DrawPortals();
     // draw player
     DrawPlayer(player);
     // draw enemy
-    drawEnemy(blue);
+    drawEnemy1(blue);
+    drawEnemy2(red);
     //finally render everything
     SDL_RenderPresent(renderer);
 }
@@ -116,7 +117,7 @@ void GameRender::DrawPlayer(Player& player){
     SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
 }
 
-void GameRender::drawEnemy(BlueGhost& blue){
+void GameRender::drawEnemy1(BlueGhost& blue){
     SDL_Rect Rect1; // source rect
     SDL_Rect Rect2; // destination rect
 
@@ -126,6 +127,23 @@ void GameRender::drawEnemy(BlueGhost& blue){
 	Rect1.h = 50;
 	Rect2.x = blue.x * tile_width; 
 	Rect2.y = blue.y * tile_width; 
+	Rect2.w = tile_width; 
+	Rect2.h = tile_width;
+	SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
+
+}
+
+void GameRender::drawEnemy2(RedGhost& red){
+    SDL_Rect Rect1; // source rect
+    SDL_Rect Rect2; // destination rect
+
+    red.frame = (red.frame + 1) % 16;
+	Rect1.x = 2 * 50;
+    Rect1.y = (red.frame/4) * 50;
+	Rect1.w = 50; 
+	Rect1.h = 50;
+	Rect2.x = red.x * tile_width; 
+	Rect2.y = red.y * tile_width; 
 	Rect2.w = tile_width; 
 	Rect2.h = tile_width;
 	SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
