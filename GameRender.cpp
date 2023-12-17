@@ -1,5 +1,6 @@
 #include "GameRender.h"
 #include "SDL_ttf.h"
+#include "SDL_image.h"
 #include <iostream>
 
 GameRender::GameRender(){
@@ -42,31 +43,121 @@ void GameRender::DrawPortals(){
 }
 
 void GameRender::RenderWelcomeScreen(){
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 128, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Color textColor = { 255, 255, 255, 255 };
+    // Load image
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
+    if (!imageSurface) {
+        std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
+        // Handle error accordingly
+    }
 
-    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 36);
+    // Create texture from image surface
+    SDL_Texture* imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+    if (!imageTexture) {
+        std::cout << "Failed to create texture from image: " << SDL_GetError() << std::endl;
+        // Handle error accordingly
+    }
 
-    SDL_Surface* surface = TTF_RenderText_Blended(font, "Welcome", textColor);
+    TTF_Init();
+
+    SDL_Color textColor = {255, 255, 255, 255};
+
+    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    if (!font) {
+        std::cout << "Failure to load font" << std::endl;
+        return;
+    }
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, "Welcome to Pacman", textColor);
+    if (!surface) {
+        std::cout << "Failure to create surface" << std::endl;
+        TTF_CloseFont(font);
+        return;
+    }
+
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!tex) {
+        std::cout << "Failure to create texture" << std::endl;
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        return;
+    }
 
     int textWidth = surface->w;
     int textHeight = surface->h;
-    int x = (width - textWidth) / 2;
-    int y = (height - textHeight) / 2;
+    int x = ((width - textWidth) / 2);
+    int y = (((height - textHeight) / 2) + 40);
 
-    SDL_Rect destinationRect = { x, y, textWidth, textHeight };
+    SDL_Surface* surface2 = TTF_RenderText_Blended(font, "Press the 'Enter' key to play.", textColor);
+    if (!surface2) {
+        std::cout << "Failure to create surface" << std::endl;
+        TTF_CloseFont(font);
+        return;
+    }
+
+    SDL_Texture* tex2 = SDL_CreateTextureFromSurface(renderer, surface2);
+    if (!tex) {
+        std::cout << "Failure to create texture" << std::endl;
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        return;
+    }
+
+    int textWidth2 = surface2->w;
+    int textHeight2 = surface2->h;
+    int x2 = (width - textWidth2) / 2;
+    int y2 = ((height - textHeight2) / 2) + 80;
+
+    SDL_Rect destinationRect = {x, y, textWidth, textHeight};
+    SDL_Rect destinationRect2 = {x2, y2, textWidth2, textHeight2};
+    SDL_Rect imageRect = {75, 40, 426, 240}; 
 
     SDL_RenderCopy(renderer, tex, nullptr, &destinationRect);
-
-    SDL_DestroyTexture(tex);
-    SDL_FreeSurface(surface);
-    TTF_CloseFont(font);
-
+    SDL_RenderCopy(renderer,tex2, nullptr, &destinationRect2);
+    SDL_RenderCopy(renderer, imageTexture, nullptr, &imageRect);
     SDL_RenderPresent(renderer);
 
+    bool enterPressed = false;
+    SDL_Event event;
+
+    // Wait for Enter key press
+    while (!enterPressed) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                // Handle window close event
+                enterPressed = true;
+                break;
+            } else if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
+                    // Enter key pressed
+                    enterPressed = true;
+                    break;
+                }
+            }
+        }
+        SDL_Delay(10); // Small delay to avoid high CPU usage
+    }
+
+    SDL_DestroyTexture(tex);
+    SDL_DestroyTexture(tex2);
+    SDL_DestroyTexture(imageTexture);
+    SDL_FreeSurface(surface);
+    SDL_FreeSurface(surface2);
+    SDL_FreeSurface(imageSurface);
+    TTF_CloseFont(font);
+
+    // Clear the renderer after Enter is pressed
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+
+    TTF_Quit();
 }
+
+
 
 void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red){
     // create a blank screen

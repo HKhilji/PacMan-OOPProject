@@ -51,7 +51,10 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
 
     // the main game loop
 
-
+    if (welcome){
+        welcome = false;
+        gamerenderer.RenderWelcomeScreen();
+    }
 
     while (running){
         frame_start = SDL_GetTicks();
@@ -67,7 +70,6 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
         
         // Render the changes on the screen
         gamerenderer.RenderGameState(grid, player, blue, red);
-        gamerenderer.RenderWelcomeScreen();
 
         //timing, changes come after the user inputs something
         frame_end = SDL_GetTicks();

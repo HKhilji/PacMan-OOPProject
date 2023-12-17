@@ -15,6 +15,7 @@ class Game{
 
     private:
         bool running = true;
+        bool welcome = true;
         void MovePlayer();
         void MoveEnemies();
         void CheckCollision(bool& running);
