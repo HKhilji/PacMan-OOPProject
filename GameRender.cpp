@@ -1,4 +1,5 @@
 #include "GameRender.h"
+#include "SDL_ttf.h"
 #include <iostream>
 
 GameRender::GameRender(){
@@ -38,6 +39,33 @@ void GameRender::DrawPortals(){
     Rect.w = tile_width;
     Rect.h = tile_width;
     SDL_RenderFillRect(renderer, &Rect);
+}
+
+void GameRender::RenderWelcomeScreen(){
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    SDL_Color textColor = { 255, 255, 255, 255 };
+
+    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 36);
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, "Welcome", textColor);
+
+    int textWidth = surface->w;
+    int textHeight = surface->h;
+    int x = (width - textWidth) / 2;
+    int y = (height - textHeight) / 2;
+
+    SDL_Rect destinationRect = { x, y, textWidth, textHeight };
+
+    SDL_RenderCopy(renderer, tex, nullptr, &destinationRect);
+
+    SDL_DestroyTexture(tex);
+    SDL_FreeSurface(surface);
+    TTF_CloseFont(font);
+
+    SDL_RenderPresent(renderer);
+
 }
 
 void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red){
