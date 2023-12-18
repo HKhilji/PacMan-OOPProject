@@ -10,10 +10,10 @@ Grid::Grid()
 void Grid::LoadGameGrid()
 {
     int i = 0;
-    std::ifstream ifs("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/grid.txt");
+    std::ifstream ifs("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/grid.txt");
     if(!ifs)
     { 
-      std::cerr << "Failed to open file <../res/gfx/grid.txt>\n";
+      std::cerr << "Failed to open file <../res/gfx/grid.txt>/n";
     return;
     };
     std::string line;
