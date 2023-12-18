@@ -10,6 +10,8 @@ GameRender::GameRender(){
     tex = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
     image = nullptr;
+    //C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp huzaifa path
+    //C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx ahmed path
 }
 
 GameRender::~GameRender(){
@@ -157,12 +159,12 @@ void GameRender::RenderWelcomeScreen(){
     TTF_Quit();
 }
 
-void GameRender::RenderEndScreen(){
+void GameRender::RenderLoseScreen(){
     SDL_SetRenderDrawColor(renderer, 164, 0, 64, 0);
     SDL_RenderClear(renderer);
 
     // Load image
-    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/holeymoley.jpeg");
     if (!imageSurface) {
         std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
         // Handle error accordingly
@@ -205,7 +207,102 @@ void GameRender::RenderEndScreen(){
     int x = ((width - textWidth) / 2);
     int y = (((height - textHeight) / 2) + 40);
 
-    SDL_Surface* surface2 = TTF_RenderText_Blended(font, "You lost. Try again!", textColor);
+    SDL_Surface* surface2 = TTF_RenderText_Blended(font, "Lol go again.", textColor);
+    if (!surface2) {
+        std::cout << "Failure to create surface" << std::endl;
+        TTF_CloseFont(font);
+        return;
+    }
+
+    SDL_Texture* tex2 = SDL_CreateTextureFromSurface(renderer, surface2);
+    if (!tex) {
+        std::cout << "Failure to create texture" << std::endl;
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        return;
+    }
+
+    int textWidth2 = surface2->w;
+    int textHeight2 = surface2->h;
+    int x2 = (width - textWidth2) / 2;
+    int y2 = ((height - textHeight2) / 2) + 80;
+
+    SDL_Rect destinationRect = {x, y, textWidth, textHeight};
+    SDL_Rect destinationRect2 = {x2, y2, textWidth2, textHeight2};
+    SDL_Rect imageRect = {145, 40, 282, 179}; 
+
+    SDL_RenderCopy(renderer, tex, nullptr, &destinationRect);
+    SDL_RenderCopy(renderer,tex2, nullptr, &destinationRect2);
+    SDL_RenderCopy(renderer, imageTexture, nullptr, &imageRect);
+    SDL_RenderPresent(renderer);
+
+    SDL_Event event;
+    SDL_Delay(3000);
+    SDL_DestroyTexture(tex);
+    SDL_DestroyTexture(tex2);
+    SDL_DestroyTexture(imageTexture);
+    SDL_FreeSurface(surface);
+    SDL_FreeSurface(surface2);
+    SDL_FreeSurface(imageSurface);
+    TTF_CloseFont(font);
+
+    // Clear the renderer after Enter is pressed
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+    TTF_Quit();
+    SDL_Quit();
+}
+
+void GameRender::RenderWinScreen(){
+    SDL_SetRenderDrawColor(renderer, 164, 0, 64, 0);
+    SDL_RenderClear(renderer);
+
+    // Load image
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/d1f.png");
+    if (!imageSurface) {
+        std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
+        // Handle error accordingly
+    }
+
+    // Create texture from image surface
+    SDL_Texture* imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+    if (!imageTexture) {
+        std::cout << "Failed to create texture from image: " << SDL_GetError() << std::endl;
+        // Handle error accordingly
+    }
+
+    TTF_Init();
+
+    SDL_Color textColor = {255, 255, 255, 255};
+
+    TTF_Font* font = TTF_OpenFont("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    if (!font) {
+        std::cout << "Failure to load font" << std::endl;
+        return;
+    }
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, "WINNER!", textColor);
+    if (!surface) {
+        std::cout << "Failure to create surface" << std::endl;
+        TTF_CloseFont(font);
+        return;
+    }
+
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!tex) {
+        std::cout << "Failure to create texture" << std::endl;
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        return;
+    }
+
+    int textWidth = surface->w;
+    int textHeight = surface->h;
+    int x = ((width - textWidth) / 2);
+    int y = (((height - textHeight) / 2) + 40);
+
+    SDL_Surface* surface2 = TTF_RenderText_Blended(font, "You Won? Something has to be wrong!", textColor);
     if (!surface2) {
         std::cout << "Failure to create surface" << std::endl;
         TTF_CloseFont(font);
@@ -252,8 +349,7 @@ void GameRender::RenderEndScreen(){
     SDL_Quit();
 }
 
-
-void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red){
+void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red, GreenGhost& green){
     // create a blank screen
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
@@ -266,6 +362,7 @@ void GameRender::RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, Re
     // draw enemy
     drawEnemy1(blue);
     drawEnemy2(red);
+    drawEnemy3(green);
     //finally render everything
     SDL_RenderPresent(renderer);
 }
@@ -357,6 +454,21 @@ void GameRender::drawEnemy2(RedGhost& red){
 	Rect1.h = 50;
 	Rect2.x = red.x * tile_width; 
 	Rect2.y = red.y * tile_width; 
+	Rect2.w = tile_width; 
+	Rect2.h = tile_width;
+	SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);
+}
+
+void GameRender::drawEnemy3(GreenGhost& green){
+    SDL_Rect Rect1; // source rect
+    SDL_Rect Rect2; // destination rect
+
+    Rect1.x = 3 * 50;
+	Rect1.y = 1 * 55;
+	Rect1.w = 50; 
+	Rect1.h = 50;
+	Rect2.x = green.x * tile_width; 
+	Rect2.y = green.y * tile_width; 
 	Rect2.w = tile_width; 
 	Rect2.h = tile_width;
 	SDL_RenderCopy(renderer, tex, &Rect1, &Rect2);

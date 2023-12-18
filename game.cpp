@@ -8,14 +8,15 @@
 
 void Game::CheckWin(bool& running, Player& player){
     if (player.getScore() == 190){
-        std::cout << "You Win!" << std::endl;
+        win = true;
         running = false;
     }
 }
 
 void Game::CheckCollision(bool& running){
-    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y))){
+    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y)) || ((player.x == green.x) && (player.y = green.y))){
         lost = true;
+        running = false;
     }
 }
 
@@ -29,13 +30,19 @@ void Game::MoveEnemies(){ // picked up this logic for enemy movement from the in
     std::future<void> ftr2 = prms2.get_future();
     std::thread t2(&RedGhost::Ghost_Move, &red, std::ref(grid), std::ref(player), std::move(prms2));
 
+    std::promise<void> prms3;
+    std::future<void> ftr3 = prms3.get_future();
+    std::thread t3(&GreenGhost::Ghost_Move, &green, std::ref(grid), std::ref(player), std::move(prms3));
+
     // wait before checking for collisions
     ftr.wait();
     ftr2.wait();
+    ftr3.wait();
     CheckCollision(running);
 
     t.join();
     t2.join();
+    t3.join();
 }
 
 void Game::MovePlayer(){
@@ -67,11 +74,14 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
             MoveEnemies();
         }
         if (lost){
-            gamerenderer.RenderEndScreen();
+            gamerenderer.RenderLoseScreen();
+        }
+        if (win){
+            gamerenderer.RenderWinScreen();
         }
         
         // Render the changes on the screen
-        gamerenderer.RenderGameState(grid, player, blue, red);
+        gamerenderer.RenderGameState(grid, player, blue, red, green);
 
         //timing, changes come after the user inputs something
         frame_end = SDL_GetTicks();

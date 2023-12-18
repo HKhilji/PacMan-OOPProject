@@ -24,6 +24,18 @@ class BlueGhost : public ghost{
         bool random_valid_cell(int x, int y, Grid& grid);
 };
 
+// green ghost
+class GreenGhost : public ghost{
+    public:
+        GreenGhost(int a, int b) : ghost(a, b) {}
+        void Ghost_Move(Grid& grid, Player& player, std::promise<void>&& prms) override;
+    private:
+        int prev_x = 0;
+        int prev_y = 0;
+        void RandomAlgo(Grid& grid);
+        bool random_valid_cell(int x, int y, Grid& grid);
+};
+
 //searches for player
 class RedGhost : public ghost{
      public:

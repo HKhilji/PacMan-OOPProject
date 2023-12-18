@@ -12,11 +12,13 @@ class Game{
         Player player;
         BlueGhost blue{10,10};
         RedGhost red{10,10};
+        GreenGhost green{10,10};
 
     private:
         bool running = true;
         bool welcome = true;
         bool lost = false;
+        bool win = false;
         void MovePlayer();
         void MoveEnemies();
         void CheckCollision(bool& running);
