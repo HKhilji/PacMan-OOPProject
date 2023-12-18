@@ -6,7 +6,7 @@
 GameRender::GameRender(){
     sdl_window = SDL_CreateWindow("Pacman!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_Surface* image = SDL_LoadBMP("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp");
+    SDL_Surface* image = SDL_LoadBMP("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp");
     tex = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
     image = nullptr;
@@ -48,7 +48,7 @@ void GameRender::RenderWelcomeScreen(){
     SDL_RenderClear(renderer);
 
     // Load image
-    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
     if (!imageSurface) {
         std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
         // Handle error accordingly
@@ -65,7 +65,7 @@ void GameRender::RenderWelcomeScreen(){
 
     SDL_Color textColor = {255, 255, 255, 255};
 
-    TTF_Font* font = TTF_OpenFont("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
     if (!font) {
         std::cout << "Failure to load font" << std::endl;
         return;
@@ -162,7 +162,7 @@ void GameRender::RenderEndScreen(){
     SDL_RenderClear(renderer);
 
     // Load image
-    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
     if (!imageSurface) {
         std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
         // Handle error accordingly
@@ -179,7 +179,7 @@ void GameRender::RenderEndScreen(){
 
     SDL_Color textColor = {255, 255, 255, 255};
 
-    TTF_Font* font = TTF_OpenFont("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
     if (!font) {
         std::cout << "Failure to load font" << std::endl;
         return;
