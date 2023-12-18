@@ -8,7 +8,7 @@
 
 void Game::CheckWin(bool& running, Player& player){
     if (player.getScore() == 190){
-        std::cout << "You Win!" << std::endl;
+        win = true;
         running = false;
     }
 }
@@ -16,6 +16,7 @@ void Game::CheckWin(bool& running, Player& player){
 void Game::CheckCollision(bool& running){
     if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y))){
         lost = true;
+        running = false;
     }
 }
 
@@ -67,7 +68,10 @@ void Game::GameLoop(controller& controller, GameRender& gamerenderer){
             MoveEnemies();
         }
         if (lost){
-            gamerenderer.RenderEndScreen();
+            gamerenderer.RenderLoseScreen();
+        }
+        if (win){
+            gamerenderer.RenderWinScreen();
         }
         
         // Render the changes on the screen

@@ -14,7 +14,8 @@ class GameRender{
 
         void RenderGameState(Grid& Grid, Player& player, BlueGhost& blue, RedGhost& red);
         void RenderWelcomeScreen();
-        void RenderEndScreen();
+        void RenderLoseScreen();
+        void RenderWinScreen();
 
         private:
             const std::size_t tile_width = 30;

@@ -17,6 +17,7 @@ class Game{
         bool running = true;
         bool welcome = true;
         bool lost = false;
+        bool win = false;
         void MovePlayer();
         void MoveEnemies();
         void CheckCollision(bool& running);
