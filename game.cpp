@@ -7,14 +7,14 @@
 #define User_Reaction_ms 200
 
 void Game::CheckWin(bool& running, Player& player){
-    if (player.getScore() == 190){
+    if (player.getScore() == 185){
         win = true;
         running = false;
     }
 }
 
 void Game::CheckCollision(bool& running){
-    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y)) || ((player.x == green.x) && (player.y = green.y))){
+    if ((player.x == blue.x) && (player.y == blue.y) || ((player.x == red.x) && (player.y == red.y))){
         lost = true;
         running = false;
     }

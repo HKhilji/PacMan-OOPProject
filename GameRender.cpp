@@ -6,7 +6,7 @@
 GameRender::GameRender(){
     sdl_window = SDL_CreateWindow("Pacman!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_Surface* image = SDL_LoadBMP("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp");
+    SDL_Surface* image = SDL_LoadBMP("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pacman50x50spritesheet.bmp");
     tex = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
     image = nullptr;
@@ -50,7 +50,7 @@ void GameRender::RenderWelcomeScreen(){
     SDL_RenderClear(renderer);
 
     // Load image
-    SDL_Surface* imageSurface = IMG_Load("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
+    SDL_Surface* imageSurface = IMG_Load("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/gfx/pakupaku.png");
     if (!imageSurface) {
         std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
         // Handle error accordingly
@@ -67,7 +67,7 @@ void GameRender::RenderWelcomeScreen(){
 
     SDL_Color textColor = {255, 255, 255, 255};
 
-    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    TTF_Font* font = TTF_OpenFont("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
     if (!font) {
         std::cout << "Failure to load font" << std::endl;
         return;
@@ -160,7 +160,6 @@ void GameRender::RenderWelcomeScreen(){
 }
 
 void GameRender::RenderLoseScreen(){
-void GameRender::RenderLoseScreen(){
     SDL_SetRenderDrawColor(renderer, 164, 0, 64, 0);
     SDL_RenderClear(renderer);
 
@@ -182,7 +181,7 @@ void GameRender::RenderLoseScreen(){
 
     SDL_Color textColor = {255, 255, 255, 255};
 
-    TTF_Font* font = TTF_OpenFont("C:/Users/DELL/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
+    TTF_Font* font = TTF_OpenFont("C:/Users/ahmed/OneDrive/Documents/GitHub/PacMan-OOPProject/res/font/retro.ttf", 20);
     if (!font) {
         std::cout << "Failure to load font" << std::endl;
         return;
@@ -465,7 +464,7 @@ void GameRender::drawEnemy3(GreenGhost& green){
     SDL_Rect Rect2; // destination rect
 
     Rect1.x = 3 * 50;
-	Rect1.y = 1 * 55;
+	Rect1.y = 0 * 55;
 	Rect1.w = 50; 
 	Rect1.h = 50;
 	Rect2.x = green.x * tile_width; 
